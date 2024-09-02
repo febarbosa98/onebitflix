@@ -11,7 +11,7 @@ export const coursesService = {
                 ['thumbnail_url', 'thumbnailUrl']
             ],
             include:{
-                association: 'episodes',
+                association: 'episode',
                 attributes: [
                     'id',
                     'name',
