@@ -80,7 +80,8 @@ export const coursesService = {
 
     findByName: async (name: string, page: number, perPage: number) => {
         const offset = (page - 1) * perPage
-        const {count, rows} = await Course.findAndCountAll({
+
+        const { count, rows } = await Course.findAndCountAll({
             attributes: [
                 'id',
                 'name',
@@ -95,6 +96,7 @@ export const coursesService = {
             limit: perPage,
             offset
         })
+
         return {
             courses: rows,
             page,

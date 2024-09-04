@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { authenticatedRequest } from "../middlewares/auth";
 import { episodeService } from "../services/episodeService";
 
 
@@ -19,5 +20,39 @@ export const episodeController = {
                 return res.status(400).json({message: err.message})
             }
         }
-    }
+    },
+
+    // GET /episodes/:id/watchTime
+    getWatchTime: async(req: authenticatedRequest, res: Response) => {
+        const userId = req.user!.id
+        const episodeId = req.params.id
+
+        try {
+            const watchTime = await episodeService.getWatchTime(userId, Number(episodeId))
+            return res.json(watchTime)
+        } catch (err) {
+            if(err instanceof Error){
+                return res.status(400).json({message: err.message})
+            }
+        }
+    },
+    // POST /episodes/:id/watchTime
+    setWatchTime: async(req: authenticatedRequest, res: Response) => {
+        const userId = req.user!.id
+        const episodeId = Number(req.params.id)
+        const { seconds } = req.body
+
+        try {
+            const watchTime = await episodeService.setWatchTime({
+                episodeId,
+                userId,
+                seconds
+            })
+            return res.json(watchTime)
+        } catch (err) {
+            if(err instanceof Error){
+                return res.status(400).json({message: err.message})
+            }
+        }
+    },
 }
