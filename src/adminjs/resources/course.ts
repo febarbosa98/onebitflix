@@ -16,7 +16,8 @@ export const couseResourceFeatures : FeatureType[] = [
   uploadFileFeature({
     provider: {
       local: {
-        bucket: path.join(__dirname, '..', '..', '..', 'public')
+        bucket: path.join(__dirname, '..', '..', '..', 'public'),
+        opts: {}
       }
     },
     properties: {
